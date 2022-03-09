@@ -1,0 +1,79 @@
+---
+title: Understanding the docker container file system (OverlayFS)
+author: iammathew
+tags: ['docker', 'oci', 'best practices', 'overlayfs']
+date: '2022-04-20'
+draft: false
+summary: In the first part of this series, we explore how the file and layer system of a docker image works, which we will need later to understand how to build better docker images.
+cover: /static/images/docker-hero-gradient.png
+---
+
+# How Docker images are built
+
+## Why it's not as simple as you think
+
+Looking at the following Dockerfile one might assume the resulting image might be smaller than the original ubuntu image.
+
+```dockerfile:Dockerfile
+FROM ubuntu:latest
+
+RUN rm -rf /usr
+```
+
+But in reality, it's larger in size. The reason for this is the way images are stored and built.
+
+## Introducing layers
+
+Docker uses a category of file systems called union file systems, more specifically OverlayFS.
+OverlayFS works by overlaying one or several read-only directory trees (`lowerdir1` and `lowerdir2`) and a single (or none) writable directory tree (`upperdir`), resulting in a merged single writable directory tree (`merged`).
+
+Let's look at the following imaginary OverlayFS filesystem. Be aware we always operate on the `merged` view of the directory tree.
+
+![OverlayFS](/static/images/OverlayFS.svg 'OverlayFS')
+
+### Scenario 1: Reading `file1`
+
+When trying to read/access `file1` in the `merged` directory tree, it will actually read `file1` of `lowerdir1`.
+
+### Scenario 2: Reading `file2`
+
+When trying to read/access `file2` in the `merged` directory tree, it will actually read `file2` of `lowerdir1`.
+Even though `file2` is both present in `lowerdir1` and `lowerdir2` the upper layers will "overlay" the layers below.
+
+### Scenario 3: Overwriting `file1`
+
+When overwriting an already existing file inside the `merged` directory tree, like `file1` in this example, the base file in `lowerdir1` won't actually be overwritten (Remember: All lowerdirs are always read-only), instead a new copy with the edits made will be created inside `upperdir`, leaving the base file untouched.
+
+![OverlayFS](/static/images/OverlayFSScenario3.svg 'OverlayFS Scenario 3')
+
+### Scenario 4: Deleting `file3`
+
+When deleting an file that exists in one of the `lowerdir`, a so called "whiteout" file is created (inside a special overlayfs directory) which marks the file as deleted. Inside the `merged` directory tree, no file will be present.
+
+**Attention:** When deleting a file inside the `upperdir`, the file will actually be deleted.
+
+![OverlayFS](/static/images/OverlayFSScenario4.svg 'OverlayFS Scenario 4')
+
+### Scenario 5: Creating `file4`
+
+When creating a new file, the file will be created inside the `upperdir` directory tree.
+
+![OverlayFS](/static/images/OverlayFSScenario5.svg 'OverlayFS Scenario 5')
+
+### Summary
+
+- All writes or deletes always happen on the `upperdir` (or in case there is none, they will fail).
+- All reads will access the file inside the most upper layer, in which it exists.
+
+## Why docker images can't decrease in size
+
+Using this newly gained knowledge of how OverlayFS works, let's go back to our original observation of the docker image that can't decrease in size.
+
+Docker images are built out of layers, which map to dirs/layers in OverlayFS. Each build instruction inside a Dockerfile will first start a new container mounting an OverlayFS as root filesystem with all previously built layers as lowerdirs (read-only) and a newly created layer as upperdir (read/write).
+Once the build step is completed (in the above case `rm -rf /usr`) it will commit the upperdir as a new readonly layer/lowerdir.
+
+Therefore the above docker image will actually be larger in size due to a new layer that contains white-out files.
+
+## The next step
+
+In the second part of this series we will explore, what to do, in order to keep docker images small, leveraging the knowledge of how the docker filesystem works.
