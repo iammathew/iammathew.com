@@ -21,7 +21,7 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
-      <div className="mb-16">
+      <div className="mb-16 mt-8">
         <h1 className="mb-4 bg-gradient-to-br from-[#0f45f8] to-[#05e6ff] bg-clip-text text-center text-8xl font-extrabold tracking-tight text-gray-900 transition-all hover:text-transparent dark:text-gray-100 dark:hover:text-transparent">
           Learn.
         </h1>

@@ -17,15 +17,22 @@ const LayoutWrapper = ({ children }: Props) => {
     <>
       <header className="fixed z-30 w-screen border-b-[1px] border-gray-700/10 bg-white/50 py-4 backdrop-blur dark:bg-black/50">
         <SectionContainer>
-          <div className="flex items-center justify-between">
-            <div>
-              <Link href="/" aria-label="Tailwind CSS Blog">
-                <div className="flex items-center justify-between text-2xl font-semibold">
-                  ~{router.asPath}
-                </div>
+          <div className="flex w-full items-center justify-between">
+            <div className="hidden flex-auto xl:block">
+              <Link href="/" aria-label="Iammathew.com" className=" text-2xl font-semibold">
+                ~{router.asPath}
               </Link>
             </div>
-            <div className="flex items-center text-base leading-5">
+            <div className="block flex-auto xl:hidden">
+              <Link
+                href="/"
+                aria-label="Iammathew.com"
+                className="overflow-hidden whitespace-nowrap text-2xl font-semibold"
+              >
+                {`~${router.asPath}`.length < 30 ? `~${router.asPath}` : 'iammathew.com'}
+              </Link>
+            </div>
+            <div className="flex flex-none items-center text-base leading-5">
               <div className="hidden sm:block">
                 {headerNavLinks.map((link) => (
                   <Link
@@ -44,8 +51,7 @@ const LayoutWrapper = ({ children }: Props) => {
         </SectionContainer>
       </header>
       <SectionContainer>
-        <div className="h-20"></div>
-        <div className="flex h-screen flex-col justify-between">
+        <div className="flex h-screen flex-col justify-between pt-16">
           <main className="mb-auto">{children}</main>
           <Footer />
         </div>
