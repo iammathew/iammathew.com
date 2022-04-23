@@ -13,6 +13,12 @@ const projectsData = [
     href: '/blog/gym-don-plus',
   },
   {
+    title: 'ConvertTo',
+    description: `Privacy-friendly video converter using ffmpeg.wasm`,
+    imgSrc: '/static/images/time-machine.jpg',
+    href: '/blog/universal-auth',
+  },
+  {
     title: 'UniversalAuth',
     description: `Work in Progress sidecar authentication solution using ORY Kratos`,
     imgSrc: '/static/images/time-machine.jpg',
