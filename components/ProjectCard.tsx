@@ -15,7 +15,7 @@ const ProjectCard = ({ title, description, imgSrc, href, imgFit }) => (
               <Image
                 alt={title}
                 src={imgSrc}
-                className="rounded-xl bg-gray-800 object-center dark:bg-white"
+                className="rounded-xl bg-white object-center"
                 layout="fill"
                 objectFit={imgFit ?? 'cover'}
               />
@@ -24,7 +24,7 @@ const ProjectCard = ({ title, description, imgSrc, href, imgFit }) => (
             <Image
               alt={title}
               src={imgSrc}
-              className="rounded-xl bg-gray-800 object-center dark:bg-white"
+              className="rounded-xl bg-white object-center"
               layout="fill"
               objectFit={imgFit ?? 'cover'}
             />
