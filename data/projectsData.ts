@@ -16,7 +16,7 @@ const projectsData = [
     title: 'ConvertTo',
     description: `Privacy-friendly video converter using ffmpeg.wasm`,
     imgSrc: '/static/images/time-machine.jpg',
-    href: '/blog/universal-auth',
+    href: 'https://convert-to.vercel.app',
   },
   {
     title: 'UniversalAuth',
