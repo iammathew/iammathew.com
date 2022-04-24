@@ -8,14 +8,14 @@ const ProjectCard = ({ title, description, imgSrc, href, imgFit }) => (
         imgSrc && 'h-full'
       } flex flex-col border-opacity-60 dark:border-gray-700 md:flex-row`}
     >
-      <div className="relative mr-0 min-h-[300px] flex-1 basis-5/12 rounded-xl border-[1px] drop-shadow-lg dark:border-0 dark:drop-shadow-none md:mr-4 md:min-h-[220px]">
+      <div className="relative mr-0 min-h-[300px] flex-1 basis-5/12 rounded-2xl border-[1px] drop-shadow-lg dark:border-0 dark:drop-shadow-none md:mr-4 md:min-h-[220px]">
         {imgSrc &&
           (href ? (
             <Link href={href} aria-label={`Link to ${title}`}>
               <Image
                 alt={title}
                 src={imgSrc}
-                className="rounded-xl bg-white object-center"
+                className="rounded-2xl bg-white object-center"
                 layout="fill"
                 objectFit={imgFit ?? 'cover'}
               />
@@ -24,7 +24,7 @@ const ProjectCard = ({ title, description, imgSrc, href, imgFit }) => (
             <Image
               alt={title}
               src={imgSrc}
-              className="rounded-xl bg-white object-center"
+              className="rounded-2xl bg-white object-center"
               layout="fill"
               objectFit={imgFit ?? 'cover'}
             />
