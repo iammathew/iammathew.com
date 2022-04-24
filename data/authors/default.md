@@ -9,4 +9,4 @@ github: https://github.com/iammathew
 
 Hey out there!
 
-I am Mathew and this is my blog/portfolio.
+I am Mathew, and this is my small blog and portfolio surrounding software engineering practices, lessons learned, and general explainers.
