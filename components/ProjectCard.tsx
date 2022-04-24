@@ -1,7 +1,7 @@
 import Image from './Image'
 import Link from './Link'
 
-const ProjectCard = ({ title, description, imgSrc, href }) => (
+const ProjectCard = ({ title, description, imgSrc, href, imgFit }) => (
   <div className="md p-4 md:w-full">
     <div
       className={`${
@@ -17,7 +17,7 @@ const ProjectCard = ({ title, description, imgSrc, href }) => (
                 src={imgSrc}
                 className="rounded-xl bg-gray-800 object-center dark:bg-white"
                 layout="fill"
-                objectFit="cover"
+                objectFit={imgFit ?? 'cover'}
               />
             </Link>
           ) : (
@@ -26,7 +26,7 @@ const ProjectCard = ({ title, description, imgSrc, href }) => (
               src={imgSrc}
               className="rounded-xl bg-gray-800 object-center dark:bg-white"
               layout="fill"
-              objectFit="cover"
+              objectFit={imgFit ?? 'cover'}
             />
           ))}
       </div>

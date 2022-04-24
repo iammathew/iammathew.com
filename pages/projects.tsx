@@ -21,6 +21,7 @@ export default function Projects() {
                 title={d.title}
                 description={d.description}
                 imgSrc={d.imgSrc}
+                imgFit={d.imgFit}
                 href={d.href}
               />
             ))}

@@ -2,7 +2,8 @@ const projectsData = [
   {
     title: 'Resyotic',
     description: `Ticket and venue management platform hosted as a SaaS-like web application. Used in production by Musical Company Donauwoerth with thousands of yearly visitors.`,
-    imgSrc: '/static/images/resyotic.png',
+    imgSrc: '/static/images/resyotic-logo.png',
+    imgFit: 'contain',
     href: '/blog/resyotic',
   },
   {
