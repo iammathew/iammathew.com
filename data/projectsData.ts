@@ -10,7 +10,7 @@ const projectsData = [
     title: 'GymDon+',
     description: `Made life of hundreds of students (weekly active users) easier by building an easy-to-use mobile application to view
     the current timetable and get notified about relevant changes.`,
-    imgSrc: '/static/images/time-machine.jpg',
+    imgSrc: '/static/images/gymdon-mockup.png',
     href: '/blog/gym-don-plus',
   },
   {
